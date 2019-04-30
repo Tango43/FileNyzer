@@ -1,0 +1,9 @@
+{% extends "./navbar.html" %}
+{% block content %}
+<form action="/fileupload" method="post" enctype="multipart/form-data" >
+    <label class="btn btn-default btn-file">
+        Browse <input <input type="file" name="file" style="display: none;">
+    </label>
+    <input type="submit" value="Upload your file" class="btn btn-primary">
+</form>
+{% endblock %}
