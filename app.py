@@ -3,9 +3,14 @@ from flask_bootstrap import Bootstrap
 import hashlib
 from flask import Flask, render_template, request, redirect, url_for
 import json
+from pymongo import MongoClient
+import gridfs
 from vbaparser import vbaparsing
+import StringIO
 
 
+db = MongoClient().myDB
+fs = gridfs.GridFS(db)
 app = Flask(__name__)
 
 
@@ -30,5 +35,6 @@ def default():
 def upload_file():
     if request.method == 'POST':
         f = request.files['file']
-        f.save('/tmp/testfile')
+        bin_file = StringIO.StringIO(f.read())  
+        file_id = fs.put(bin_file,filename=f.filename)
     return 'check'
