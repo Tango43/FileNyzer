@@ -11,9 +11,9 @@
 
 ## FileNyzer
 Current Supported Local Scans:
-
-* Yara Scan (https://github.com/Yara-Rules/rules)
+* None
 * Todo:
+  * Yara scan
   * VBA Extraction
   * Pdf Parsing .pdf
   * Windows Calls Extraction on .exe
