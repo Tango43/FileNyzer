@@ -12,11 +12,9 @@
 ## FileNyzer
 Current Supported Local Scans:
 
-* NSRL MD5 Whitelist Match
 * Yara Scan (https://github.com/Yara-Rules/rules)
-* Fuzzy Hash Matching (ssdeep)
 * VBA Extraction
-* Todo:
-  - Handle Errors, with VBA non existent
-  - Analysis PDFs with PDF analysers, for risky Actions
+Todo:
+  * Pdf Parsing .pdf
+  * Windows Calls Extraction on .exe
 # FileNyzer
