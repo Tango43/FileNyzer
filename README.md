@@ -13,8 +13,8 @@
 Current Supported Local Scans:
 
 * Yara Scan (https://github.com/Yara-Rules/rules)
-* VBA Extraction
-Todo:
+* Todo:
+  * VBA Extraction
   * Pdf Parsing .pdf
   * Windows Calls Extraction on .exe
 # FileNyzer
