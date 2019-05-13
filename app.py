@@ -7,12 +7,14 @@ from pymongo import MongoClient
 import gridfs
 from vbaparser import vbaparsing
 import StringIO
-from strings import strings
-
+import re
 
 db = MongoClient().myDB
 fs = gridfs.GridFS(db)
 app = Flask(__name__)
+client = MongoClient('localhost', 27017)
+db2 = client['Metadata']
+Metadata = db2['Metadata'] 
 
 
 bootstrap = Bootstrap(app)
@@ -38,14 +40,18 @@ def upload_file():
         f = request.files['file']
         bin_file = StringIO.StringIO(f.read())  
         file_id = fs.put(bin_file,filename=f.filename)
-    return "Results"
+    return str(file_id)
 
 
-@app.route('/analyse/<file_id>')
-def analyse_file(file_id):
-    f = fs.get(file_id).read()
-    print(f)
-    #bin_file = StringIO.StringIO(f.read())
-    #for s in strings(binfile):
-    #    print(s)
-    return "ok"
+@app.route('/analyse/<md5>')
+def analyse_file(md5):
+    md5 = str(md5)
+    for f in fs.find({"md5": md5}):
+    	f = f.read()
+    filemdata = {}
+    filemdata['md5'] = md5
+    #Strings
+    result = re.findall(r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}", f) 
+    filemdata['strings'] = result
+    Metadata.insert(filemdata)
+    return "test"
