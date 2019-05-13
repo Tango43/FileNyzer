@@ -7,6 +7,7 @@ from pymongo import MongoClient
 import gridfs
 from vbaparser import vbaparsing
 import StringIO
+from strings import strings
 
 
 db = MongoClient().myDB
@@ -37,4 +38,14 @@ def upload_file():
         f = request.files['file']
         bin_file = StringIO.StringIO(f.read())  
         file_id = fs.put(bin_file,filename=f.filename)
-    return 'check'
+    return "Results"
+
+
+@app.route('/analyse/<file_id>')
+def analyse_file(file_id):
+    f = fs.get(file_id).read()
+    print(f)
+    #bin_file = StringIO.StringIO(f.read())
+    #for s in strings(binfile):
+    #    print(s)
+    return "ok"
