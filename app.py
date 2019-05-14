@@ -7,7 +7,9 @@ from pymongo import MongoClient
 import gridfs
 from vbaparser import vbaparsing
 import StringIO
-import re
+import sys
+sys.path.insert(0, 'analysers')
+from strings import findip
 
 db = MongoClient().myDB
 fs = gridfs.GridFS(db)
@@ -51,7 +53,8 @@ def analyse_file(md5):
     filemdata = {}
     filemdata['md5'] = md5
     #Strings
-    result = re.findall(r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}", f) 
-    filemdata['strings'] = result
+    ip = findip(f)
+    filemdata['strings'] = {}
+    filemdata['strings']['ip'] = ip
     Metadata.insert(filemdata)
     return "test"
