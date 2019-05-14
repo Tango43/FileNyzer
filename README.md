@@ -11,7 +11,7 @@
 
 ## FileNyzer
 Current Supported Local Scans:
-* None
+* Strings (IP Regex, Domain Regex)
 * Todo:
   * Yara scan
   * VBA Extraction
