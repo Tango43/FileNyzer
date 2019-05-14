@@ -1,15 +1,15 @@
 import os
 from flask_bootstrap import Bootstrap
-import hashlib
 from flask import Flask, render_template, request, redirect, url_for
 import json
+import pymongo
 from pymongo import MongoClient
 import gridfs
-from vbaparser import vbaparsing
 import StringIO
 import sys
 sys.path.insert(0, 'analysers')
 from strings import findip
+from bson import json_util
 
 db = MongoClient().myDB
 fs = gridfs.GridFS(db)
@@ -17,26 +17,21 @@ app = Flask(__name__)
 client = MongoClient('localhost', 27017)
 db2 = client['Metadata']
 Metadata = db2['Metadata'] 
-
+db3 = client['myDB']
 
 bootstrap = Bootstrap(app)
 
-def md5check(filename):
-    hash_md5 = hashlib.md5()
-    with open(filename, "rb") as f:
-        for chunk in iter(lambda: f.read(4096), b""):
-            hash_md5.update(chunk)
-        md5sum = hash_md5.hexdigest()
-        result = es.search(index="md5", body={"query": {"match": {"IoC": md5sum} }})
-    result = json.dumps(result["hits"])
-    print(result)
-    return result
-
 @app.route('/')
 def default():
-    return render_template('index.html')
+    report = json_util.dumps(db3['fs.files'].find())
+    report = json.loads(report)
+    return render_template('index.html',report=report)
 
-@app.route('/fileupload', methods=['POST'])
+@app.route('/upload')
+def fileupload():
+    return render_template('upload.html')
+
+@app.route('/api/fileupload', methods=['POST'])
 def upload_file():
     if request.method == 'POST':
         f = request.files['file']

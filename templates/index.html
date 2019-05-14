@@ -1,13 +1,26 @@
 {% extends "./navbar.html" %}
 {% block content %}
 <br></br>
-<br></br>
-<div class="d-flex justify-content-center">
-<form action="/fileupload" method="post" enctype="multipart/form-data">
-    <label class="btn btn-default btn-file">
-        Browse <input type="file" name="file">
-    </label>
-    <input type="submit" value="Upload your file" class="btn btn-primary">
-</form>
+<div class="container">
+	<div class="row">
+		<div class="col col-lg-2">
+	    </div>
 
+		<div class="col">
+			<table class="table table-bordered">
+				<thead>
+					<th scope="col">Filename</th>
+				</thead>
+				<tbody>
+					{% for file in report %}
+						<tr>
+							<th scope="row">{{ file['filename'] }}</th>
+						</tr>
+         			{% endfor %}
+			</table>
+		</div>
+		<div class="col col-lg-2">
+		</div>
+	</div>
+</div>
 {% endblock %}
