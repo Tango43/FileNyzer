@@ -37,7 +37,7 @@ def upload_file():
         f = request.files['file']
         bin_file = StringIO.StringIO(f.read())  
         file_id = fs.put(bin_file,filename=f.filename)
-    return str(file_id)
+    return redirect(url_for('default'))
 
 
 @app.route('/analyse/<md5>')
@@ -52,4 +52,4 @@ def analyse_file(md5):
     filemdata['strings'] = {}
     filemdata['strings']['ip'] = ip
     Metadata.insert(filemdata)
-    return "test"
+    return "File Inspect"
