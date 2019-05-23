@@ -39,8 +39,15 @@ def upload_file():
         file_id = fs.put(bin_file,filename=f.filename)
     return redirect(url_for('default'))
 
+@app.route('/inspectfile/<md5>')
+def inspect_file(md5):
+    md5 = str(md5)
+    files = Metadata.find({"md5": md5})
+    files = json_util.dumps(files)
+    print(files)
+    return str(files)
 
-@app.route('/analyse/<md5>')
+@app.route('/api/analyse/<md5>')
 def analyse_file(md5):
     md5 = str(md5)
     for f in fs.find({"md5": md5}):
@@ -52,4 +59,4 @@ def analyse_file(md5):
     filemdata['strings'] = {}
     filemdata['strings']['ip'] = ip
     Metadata.insert(filemdata)
-    return "File Inspect"
+    return redirect(url_for('inspect_file',md5=md5))
