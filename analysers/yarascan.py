@@ -1,6 +1,7 @@
 import yara
 
-def yaramatch(filename):
-    rules = yara.compile("DBs/rules/index.yar")
-    matches = rules.match(filename)
+def yaramatch(f):
+    rules = yara.compile("rules/index.yar")
+    matches = rules.match(rf)
+    print(str(matches))
     return matches

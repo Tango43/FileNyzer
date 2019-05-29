@@ -7,9 +7,11 @@ from pymongo import MongoClient
 import gridfs
 import StringIO
 import sys
+from bson import json_util
 sys.path.insert(0, 'analysers')
 from strings import findip
-from bson import json_util
+from yarascan import yaramatch
+
 
 db = MongoClient().myDB
 fs = gridfs.GridFS(db)
@@ -47,7 +49,7 @@ def inspect_file(md5):
     print(files)
     return str(files)
 
-@app.route('/api/analyse/<md5>')
+@app.route('/api/analyse/<md5>')    
 def analyse_file(md5):
     md5 = str(md5)
     for f in fs.find({"md5": md5}):
@@ -56,6 +58,9 @@ def analyse_file(md5):
     filemdata['md5'] = md5
     #Strings
     ip = findip(f)
+    #Yara Match
+    yara = yaramatch(f)
+
     filemdata['strings'] = {}
     filemdata['strings']['ip'] = ip
     Metadata.insert(filemdata)
