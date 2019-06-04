@@ -61,7 +61,11 @@ def analyse_file(md5):
     yara = yaramatch(f)
     filemdata['strings'] = {}
     filemdata['strings']['ip'] = ip
-    filemdata['yara-match'] = yara
+    filemdata['yara-match'] = []
+    for match in yara:
+        filemdata['yara-match'].append(match.rule)
+    
+
 
     Metadata.insert(filemdata)
     return redirect(url_for('inspect_file',md5=md5))
