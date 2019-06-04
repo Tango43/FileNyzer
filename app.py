@@ -46,7 +46,6 @@ def inspect_file(md5):
     md5 = str(md5)
     files = Metadata.find({"md5": md5})
     files = json_util.dumps(files)
-    print(files)
     return str(files)
 
 @app.route('/api/analyse/<md5>')    
@@ -60,8 +59,9 @@ def analyse_file(md5):
     ip = findip(f)
     #Yara Match
     yara = yaramatch(f)
-
     filemdata['strings'] = {}
     filemdata['strings']['ip'] = ip
+    filemdata['yara-match'] = yara
+
     Metadata.insert(filemdata)
     return redirect(url_for('inspect_file',md5=md5))
