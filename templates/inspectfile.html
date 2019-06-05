@@ -1,0 +1,21 @@
+{% extends "./navbar.html" %}
+{% block content %}
+<table class="table table-bordered">
+	<thead>
+		<th scope="col">MD5</th>
+		<th scope="col">Strings IP</th>
+		<th scope="col">Yara</th>
+	</thead>
+	<tbody>
+		{% for value in file %}
+			<tr>
+				<th scope="row">{{ value['md5'] }}</th>
+					<td> {{ value['string-match'] }}</td>
+					<td> {{ value['yara-match'] }}</td>
+			</tr>
+         {% endfor %}
+</table>
+{% endblock %}
+
+  </body>
+  </html>
