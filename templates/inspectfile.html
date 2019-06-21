@@ -10,10 +10,20 @@
 		{% for value in file %}
 			<tr>
 				<th scope="row">{{ value['md5'] }}</th>
-					<td> {{ value['string-match'] }}</td>
-					<td> {{ value['yara-match'] }}</td>
+					<td>
+					{% for values in value['string-match']  %}
+                                        {{ values }} -
+                                        {% endfor %}
+                                        </td>
+					
+					</td>
+					<td>
+					{% for values in value['yara-match']  %}
+					{{ values }} -  
+					{% endfor %}
+					</td>
 			</tr>
-         {% endfor %}
+
 </table>
 {% endblock %}
 
