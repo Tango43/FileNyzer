@@ -25,7 +25,7 @@ bootstrap = Bootstrap(app)
 
 @app.route('/')
 def default():
-    report = json_util.dumps(db3['fs.files'].find())
+    report = json_util.dumps(db3['fs.files'].find().sort("_id",pymongo.DESCENDING))
     report = json.loads(report)
     return render_template('index.html',report=report)
 

@@ -10,13 +10,14 @@
 			<table class="table table-bordered">
 				<thead>
 					<th scope="col">Filename</th>
-					<th scope="col">Action</th>
+					<th scope="col">Inpsect</th>
 				</thead>
 				<tbody>
 					{% for file in report %}
 						<tr>
 							<th scope="row">{{ file['filename'] }}</th>
-							<td><form action="/api/analyse/{{ file['md5'] }}"><button class="btn btn-primary">Analyze</button></form>
+							<td><form action="/inspectfile/{{ file['md5'] }}"><button class="btn btn-primary">Inspect</button></form>
+							<form action="/api/analyse/{{ file['md5'] }}"><button class="btn btn-primary">Analyze</button></form>
 						</tr>
          			{% endfor %}
 			</table>

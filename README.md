@@ -12,9 +12,11 @@
 ## FileNyzer
 Current Supported Local Scans:
 * Strings (IP Regex, Domain Regex)
+* Yara Scan
 * Todo:
-  * Yara scan
+
   * VBA Extraction
   * Pdf Parsing .pdf
   * Windows Calls Extraction on .exe
 # FileNyzer
+
