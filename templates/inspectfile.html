@@ -13,17 +13,17 @@
 					<td>
 					{% for values in value['string-match']  %}
                                         {{ values }} -
-                                        {% endfor %}
+                                    {% endfor %}
                                         </td>
 					
 					</td>
 					<td>
 					{% for values in value['yara-match']  %}
-					{{ values }} -  
+						{{ values }} -  
 					{% endfor %}
 					</td>
 			</tr>
-
+		{% endfor %}
 </table>
 {% endblock %}
 
